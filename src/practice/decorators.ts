@@ -172,26 +172,26 @@ function PositiveNumber(target: any, propName: string) {
   };
 }
 
-function validate(obj: any) {
-  const objValidatorConfig = registeredValidators[obj.constructor.name];
-  if (!objValidatorConfig) {
-    return true;
-  }
-  let isValid = true;
-  for (const prop in objValidatorConfig) {
-    for (const validator of objValidatorConfig[prop]) {
-      switch (validator) {
-        case 'required':
-          isValid = isValid && !!obj[prop];
-          break;
-        case 'positive':
-          isValid = isValid && obj[prop] > 0;
-          break;
-      }
-    }
-  }
-  return isValid;
-}
+// function validate(obj: any) {
+//   const objValidatorConfig = registeredValidators[obj.constructor.name];
+//   if (!objValidatorConfig) {
+//     return true;
+//   }
+//   let isValid = true;
+//   for (const prop in objValidatorConfig) {
+//     for (const validator of objValidatorConfig[prop]) {
+//       switch (validator) {
+//         case 'required':
+//           isValid = isValid && !!obj[prop];
+//           break;
+//         case 'positive':
+//           isValid = isValid && obj[prop] > 0;
+//           break;
+//       }
+//     }
+//   }
+//   return isValid;
+// }
 
 class Course {
   @Required
@@ -216,9 +216,9 @@ courseForm.addEventListener('submit', (event) => {
 
   const createdCourse = new Course(title, price);
 
-  if (!validate(createdCourse)) {
-    alert('Invalid input, please try again!');
-    return;
-  }
+  // if (!validate(createdCourse)) {
+  //   alert('Invalid input, please try again!');
+  //   return;
+  // }
   console.log(createdCourse);
 });
