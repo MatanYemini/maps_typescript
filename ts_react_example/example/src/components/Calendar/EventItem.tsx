@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { UserEvent, deleteUserEvent } from '../../redux/user-events';
+import {
+  UserEvent,
+  deleteUserEvent,
+  updateUserEvent,
+} from '../../redux/user-events';
 import { useDispatch } from 'react-redux';
 
 interface Props {
@@ -28,6 +32,18 @@ const EventItem: React.FC<Props> = ({ event }) => {
     setTitle(e.target.value);
   };
 
+  const hadleBlur = () => {
+    if (title !== event.title) {
+      dispatch(
+        updateUserEvent({
+          ...event,
+          title,
+        })
+      );
+    }
+    setEditable(false);
+  };
+
   return (
     <div key={event.id} className='calendar-event'>
       <div className='calendar-event-time'>10:00 - 12:00</div>
@@ -44,6 +60,7 @@ const EventItem: React.FC<Props> = ({ event }) => {
             ref={inputRef}
             value={title}
             onChange={handleChange}
+            onBlur={hadleBlur}
           />
         ) : (
           <span onClick={handleTitleClick}>{event.title}</span>
